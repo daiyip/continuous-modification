@@ -94,14 +94,14 @@ When issuing the request, we can add an overridden logic of  `fun1` in request, 
 {
  “input”: { 
      "a": "a string value",
-     "b": "a int value" 
+     "b": 1 
  },
  “override”: {
-    “fun1”: “function(input) { fun1_1’(input.a); fun1_1(input.a); fun1_2’(input.b); }”
+    “fun1”: “function(input) \{ fun1_1’(input.a); fun1_1(input.a); fun1_2’(input.b); \}”
  }
 }
 ```
-`fun2` cannot be overridden since `service_main` doesn’t call it in an indirect manner. Service owner should decide what functions are booked for developers to quick innovate, and what shall stay stable.
+`fun2` cannot be overridden since `service_main` doesn’t call it without indirection. Service owner should decide what functions are booked for developers to quick innovate, and what shall stay stable.
 
 ![An example of specified modification](img/specified-modification.png)
 
