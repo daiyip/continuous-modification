@@ -6,12 +6,12 @@ An example is search engine, one of the most complex software on earth, which se
 
 A widely employed model to support fast innovation is [continuous deployment](https://en.wikipedia.org/wiki/Continuous_delivery#Relationship_to_continuous_deployment): production system get deployed in a hourly to weekly cadence, which is called release train. Individual features catch a train to ship its changes to production, or wait for the next. 
 
-While hourly deployments work well for many products, it’s not good enough to serve products with hundreds of daily experiments, which is a norm in the era of big data and AI.  In this post, I will introduce a mechanism to tackle this problem, which I called hot modification, and a process on top named continuous modification to build such systems that can constantly evolve. We will also discuss necessary language  constructs and design patterns to implement this mechanism.
+While hourly deployments work well for many products, it’s not good enough to serve products with hundreds of daily experiments, which is a norm in the era of big data and AI.  In this post, I will introduce a mechanism to tackle this problem, which I called *Hot Modification*, and a process on top named *Continuous Modification* to build such systems that can constantly evolve. We will also discuss necessary language constructs and design patterns to implement this mechanism.
 
 ##  Hot modification
 Hot modification is a mechanism that enables modification of program logics while the service is serving requests without interruption, with the modified parts only impacting a set of controlled requests.
 
-![](img/hot-modification.png)
+![Illustration of hot modification](img/hot-modification.png)
 
 Being more verbose, it means
 * Code can be changed (added, removed or modified) in program execution flow without suspending or stopping service
@@ -22,7 +22,7 @@ Being more verbose, it means
 # Continuous modification
 If we can have hot modification, we can set up an engineering process as following:
 
-![](img/continuous-modification.png)
+![Process of continuous modification](img/continuous-modification.png)
 
 1) **Prototyping**: Starting from an idea, developer quickly prototype with a dynamic language, the code can be pushed to production along with a debug request. Developer is able to get see changed result instantly.
 2) **Iteration**: the prototype is iterated multi-round using hot modifications, until an expected output is met.
@@ -67,7 +67,7 @@ After comparing these languages, we have chosen JavaScript. Aside from providing
 
 Finally, the program structure with hot modification enabled would look like: 
 
-![](img/program-structure.png)
+![Program structure with hot modification support](img/program-structure.png)
 
 ### Specified modification
 With the ability to inject code as objects at runtime, we can easily implement mechanism to override specific functions via [inversion of control](https://en.wikipedia.org/wiki/Inversion_of_control). 
@@ -103,7 +103,7 @@ When issuing the request, we can add an overridden logic of  `fun1` in request, 
 ```
 `fun2` cannot be overridden since `service_main` doesn’t call it in an indirect manner. Service owner should decide what functions are booked for developers to quick innovate, and what shall stay stable.
 
-![](img/specified-modification.png)
+![An example of specified modification](img/specified-modification.png)
 
 ### Scoped modification
 One step further, we will not always push modified code from request, which comes with a cost of parsing, JIT, and loading resources that can actually live longer than the request. When we move forward to A/B testing, we need to load the code once, and apply to all requests which uses the configuration. And finally, when code is graduated to production, we will configure a service level default for its overridable functions.
@@ -112,7 +112,7 @@ Accordingly, it takes a priority to choose the right version of function for a n
 
 This overriding chain is a perfect use case for the [chain of responsibility](https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern) pattern.
 
-![](img/scoped-modification.png)
+![Chain of responsibility of overriding scopes](img/scoped-modification.png)
 
 Then pseudo code would look like:
 
