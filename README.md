@@ -114,7 +114,7 @@ This overriding chain is a perfect use case for the [chain of responsibility](ht
 
 ![Chain of responsibility of overriding scopes](img/scoped-modification.png)
 
-Then pseudo code would look like:
+Pseudo code would look like:
 
 ```ts
 class FunctionContext  {
@@ -193,7 +193,7 @@ There is nothing special to achieve the first two goals, but there are some tips
 * Take advantage of optimizations in language implementation: hidden class optimization (V8), preference of using array of uniform types, etc.
 
 ## Conclusion
-In this post, a mechanism hot modification is proposed for creating online services, based on which a new process continuous modification is introduced, which can enable online services the ability to innovate continuously. We have implemented this mechanism in Microsoft, from which we have achieved more than 10 times agility improvement on ML feature experimentation.
+In this post, a mechanism *hot modification* is proposed for modifying code online without impacting service quality, based on which we introduced a new engineering process *continuous modification*, which enables developer to innovate on production continuously. We have implemented this mechanism and process in Microsoft using JavaScript and C++, from which we got 10x agility improvement on ML feature experimentation, if not more.
 
 The mechanism of hot modification and the process of continuous modification are universal, I earnestly hope that it could be employed in different types of systems to see how it boosts innovation.
 
