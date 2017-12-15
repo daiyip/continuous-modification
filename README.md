@@ -1,4 +1,4 @@
-# Continuous modification: A process that build constantly evolving services
+# Continuous modification: A process to build constantly evolving services
 
 Software is already a living species. Today, massive data and timely feedback from users push decision-making cycles to be shorter and shorter: A feature of modest size released in quarterly cycle a few years ago, would be a minimal product exposed to a friction of users in a few hours today, and evolve to its best shape along with increasing exposure in the following weeks. Its implication is not that we do things faster, but we do to fail faster as to find a less travelled path to the true north, which is increasing important as systems get increasing complex.
 
